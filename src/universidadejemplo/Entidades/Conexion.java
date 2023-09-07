@@ -21,35 +21,36 @@ public class Conexion {
     private static String usuario="root";
     private static String password="";
 
-   
-    private static Conexion conexion=null;
+    private static Connection connection;
     
-     private Conexion() {
-        try {
-            Class.forName("org.mariadb.jdbc.Driver");
-            
-        } catch (ClassNotFoundException ex) {
-            JOptionPane.showMessageDialog(null, "Clase Conexion: Error al cargar Driver");
-        }
+    private Conexion() {
     }
-
+   
 
     
     public static Connection getConexion() {
-        Connection con=null;
-      if(conexion == null){
+//        Connection con=null;
+    
+        if(connection == null){
           
-           conexion= new Conexion();
-        }
+           
+        
         try {
+            Class.forName("org.mariadb.jbdc.Driver");
+        
             // Setup the connection with the DB
-            con = DriverManager.getConnection(url + "?useLegacyDatetimeCode=false&serverTimezone=UTC" + "&user=" + usuario + "&password=" + password);
+            connection = DriverManager.getConnection(url + "?useLegacyDatetimeCode=false&serverTimezone=UTC" + "&user=" + usuario + "&password=" + password);
             
         }catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error de conexion ");
-        }
+            JOptionPane.showMessageDialog(null, "Error de conexion "+ ex.getMessage());
+        }   catch (ClassNotFoundException ex) {
+                JOptionPane.showMessageDialog(null, "Error al cargar los drivers"+ex.getMessage());
+            }
         
-        return con;
+        
     }
-    
+    return connection;    
+
 }
+}
+
