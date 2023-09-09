@@ -1,5 +1,5 @@
 
-package universidadejemplo.Entidades;
+package UniversidadEjemplo.Entidades;
 
 
 public class Inscripcion {
