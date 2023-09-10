@@ -14,7 +14,8 @@ import javax.swing.JOptionPane;
 public class MateriaData {
 
     private Connection con = null;
-
+    
+    
     public MateriaData() {
         con = Conexion.getConexion();
     }
