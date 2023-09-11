@@ -22,7 +22,7 @@ public class MateriaData {
 
     public void guargarMateria(Materia materia) {
 
-        String sql = "INSERT INTO `materia`( `nombre`, `año`, `estado`) VALUES ('?','?','?','?')";
+        String sql = "INSERT INTO `materia`( `nombre`, `año`, `estado`) VALUES (?,?,?,?)";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -43,7 +43,7 @@ public class MateriaData {
 
     public Materia buscarMateria(int id) {
         Materia materia = null;
-        String sql = "SELECT `nombre`, `año`, `estado` FROM `materia` WHERE `idMateria=?` and `estado` =1";
+        String sql = "SELECT `nombre`, `año`, `estado` FROM `materia` WHERE idMateria=? and `estado` =1";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
@@ -69,7 +69,7 @@ public class MateriaData {
     }
 
     public void modificarMateria(Materia materia ) {
- String sql = " UPDATE `materia` SET `nombre`='?',`año`='?',`estado`='?' WHERE idMateria= ?";
+ String sql = " UPDATE `materia` SET `nombre`=?,`año`=?,`estado`=? WHERE idMateria= ?";
         PreparedStatement ps = null;
 
         try {
