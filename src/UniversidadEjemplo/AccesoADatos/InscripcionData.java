@@ -128,8 +128,8 @@ public class InscripcionData {
     public List<Materia> obtenerMatriasNOCursadas(int id ){
         List<Materia> materiasNO = new ArrayList<Materia>();
         try {
-            String sql = "SELECT `Inscripcion.idMateria`, `nombre`, `año` FROM `inscripcion`, materia "
-                    + "WHERE inscripcion.idMateria =materia.idMateria and inscripcion.idAlumno = ?";
+            String sql = "SELECT `Inscripcion, `nombre`, `año` FROM `inscripcion`, materia "
+                    + "WHERE  NOT inscripcion.idMateria =materia.idMateria and inscripcion.idAlumno = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
@@ -143,9 +143,10 @@ public class InscripcionData {
             }
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al obtener Inscripciones " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al obtener Inscripciones materias NO cursadas " + ex.getMessage());
         }
         
         return materiasNO;
     }
+    
 }
