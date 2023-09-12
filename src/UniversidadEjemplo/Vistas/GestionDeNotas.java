@@ -5,17 +5,22 @@
  */
 package UniversidadEjemplo.Vistas;
 
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author elmsn
  */
 public class GestionDeNotas extends javax.swing.JInternalFrame {
+private DefaultTableModel modelo= new DefaultTableModel();
+
 
     /**
      * Creates new form GestionDeNotas
      */
     public GestionDeNotas() {
         initComponents();
+        armarCabecera();
     }
 
     /**
@@ -131,4 +136,12 @@ public class GestionDeNotas extends javax.swing.JInternalFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JButton jbSalir;
     // End of variables declaration//GEN-END:variables
+private void armarCabecera(){
+    modelo.addColumn("Codigo");
+    modelo.addColumn("Nombre");
+    modelo.addColumn("Nota");
+    
+    jTable1.setModel(modelo);
+}
+
 }

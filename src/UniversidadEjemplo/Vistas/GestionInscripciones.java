@@ -5,17 +5,20 @@
  */
 package UniversidadEjemplo.Vistas;
 
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author elmsn
  */
 public class GestionInscripciones extends javax.swing.JInternalFrame {
-
+private DefaultTableModel modelo= new DefaultTableModel();
     /**
      * Creates new form GestionInscripciones
      */
     public GestionInscripciones() {
         initComponents();
+        armarCabecera();
     }
 
     /**
@@ -186,4 +189,12 @@ public class GestionInscripciones extends javax.swing.JInternalFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JButton jbSalir;
     // End of variables declaration//GEN-END:variables
+private void armarCabecera(){
+    modelo.addColumn("ID");
+    modelo.addColumn("Nombre");
+    modelo.addColumn("Año");
+    
+    jTable1.setModel(modelo);
+
+}
 }

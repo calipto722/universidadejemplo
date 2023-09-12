@@ -130,6 +130,8 @@ public class InscripcionData {
         try {
             String sql = "SELECT `Inscripcion, `nombre`, `año` FROM `inscripcion`, materia "
                     + "WHERE  NOT inscripcion.idMateria =materia.idMateria and inscripcion.idAlumno = ?";
+            
+            // Where not in 
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
