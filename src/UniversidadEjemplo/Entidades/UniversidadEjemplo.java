@@ -6,6 +6,7 @@
 package UniversidadEjemplo.Entidades;
 
 import UniversidadEjemplo.AccesoADatos.Conexion;
+import UniversidadEjemplo.Vistas.MenuPrincipal;
 
 /**
  *
@@ -19,6 +20,10 @@ public class UniversidadEjemplo {
     public static void main(String[] args) {
         // TODO code application logic here
         Conexion.getConexion();
+        MenuPrincipal menu = new MenuPrincipal();
+        menu.setVisible(true);
+        menu.setLocationRelativeTo(null);
+        
     }
     
 }
