@@ -102,7 +102,7 @@ public class InscripcionData {
         return inscripciones;
     }
 
-    public List<Materia> ObtenerMateriasCursadas(int id) {
+    public List<Materia> obtenerMateriasCursadas(int id) {
         List<Materia> materias = new ArrayList<Materia>();
         try {
             String sql = "SELECT `Inscripcion.idMateria`, `nombre`, `año` FROM `inscripcion`, materia "
@@ -123,5 +123,29 @@ public class InscripcionData {
             JOptionPane.showMessageDialog(null, "Error al obtener Inscripciones " + ex.getMessage());
         }
         return materias;
+    }
+    // Revisar
+    public List<Materia> obtenerMatriasNOCursadas(int id ){
+        List<Materia> materiasNO = new ArrayList<Materia>();
+        try {
+            String sql = "SELECT `Inscripcion.idMateria`, `nombre`, `año` FROM `inscripcion`, materia "
+                    + "WHERE inscripcion.idMateria =materia.idMateria and inscripcion.idAlumno = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            Materia materia;
+            while (rs.next()) {
+                materia = new Materia();
+                materia.setIdMateria(rs.getInt("idMateria"));
+                materia.setNombre(rs.getString("nombre"));
+                materia.setAnioMateria(rs.getInt("año"));
+                materiasNO.add(materia);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al obtener Inscripciones " + ex.getMessage());
+        }
+        
+        return materiasNO;
     }
 }
