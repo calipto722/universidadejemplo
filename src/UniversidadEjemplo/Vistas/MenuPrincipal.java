@@ -155,20 +155,20 @@ public class MenuPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         Escritorio.removeAll();
         Escritorio.repaint();
-        GestionDeNotas gdn= new GestionDeNotas ();
-         gdn.setVisible(true);
-         Escritorio.add(gdn);
-         Escritorio.moveToFront(gdn);
+        GestionDeNotas gdn = new GestionDeNotas();
+        gdn.setVisible(true);
+        Escritorio.add(gdn);
+        Escritorio.moveToFront(gdn);
     }//GEN-LAST:event_jmiManipulacionNotasActionPerformed
 
     private void jmiFormularioAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiFormularioAlumnoActionPerformed
         // TODO add your handling code here:
         Escritorio.removeAll();
         Escritorio.repaint();
-        GestionDeAlumnos gda= new GestionDeAlumnos ();
-         gda.setVisible(true);
-         Escritorio.add(gda);
-         Escritorio.moveToFront(gda);
+        GestionDeAlumnos gda = new GestionDeAlumnos();
+        gda.setVisible(true);
+        Escritorio.add(gda);
+        Escritorio.moveToFront(gda);
         
     }//GEN-LAST:event_jmiFormularioAlumnoActionPerformed
 
@@ -176,20 +176,20 @@ public class MenuPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         Escritorio.removeAll();
         Escritorio.repaint();
-        GestionDeMaterias gdm= new GestionDeMaterias ();
-         gdm.setVisible(true);
-         Escritorio.add(gdm);
-         Escritorio.moveToFront(gdm);
+        GestionDeMaterias gdm = new GestionDeMaterias();
+        gdm.setVisible(true);
+        Escritorio.add(gdm);
+        Escritorio.moveToFront(gdm);
     }//GEN-LAST:event_jmiFormularioMateriaActionPerformed
 
     private void jmiManejoInscripcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiManejoInscripcionesActionPerformed
         // TODO add your handling code here:
         Escritorio.removeAll();
         Escritorio.repaint();
-        GestionInscripciones gi= new GestionInscripciones ();
-         gi.setVisible(true);
-         Escritorio.add(gi);
-         Escritorio.moveToFront(gi);
+        GestionInscripciones gi = new GestionInscripciones();
+        gi.setVisible(true);
+        Escritorio.add(gi);
+        Escritorio.moveToFront(gi);
     }//GEN-LAST:event_jmiManejoInscripcionesActionPerformed
 
     private void jmiAlumnosporMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAlumnosporMateriaActionPerformed
