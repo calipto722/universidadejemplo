@@ -19,6 +19,7 @@ private DefaultTableModel modelo= new DefaultTableModel();
     public GestionInscripciones() {
         initComponents();
         armarCabecera();
+        this.setTitle("Formulario de Inscripcion");
     }
 
     /**

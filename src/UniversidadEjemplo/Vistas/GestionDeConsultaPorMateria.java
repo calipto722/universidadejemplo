@@ -19,6 +19,7 @@ private DefaultTableModel modelo= new DefaultTableModel();
     public GestionDeConsultaPorMateria() {
         initComponents();
         armarCabecera();
+        
     }
 
     /**

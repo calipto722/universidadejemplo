@@ -21,6 +21,7 @@ private DefaultTableModel modelo= new DefaultTableModel();
     public GestionDeNotas() {
         initComponents();
         armarCabecera();
+        this.setTitle("Carga de notas");
     }
 
     /**
