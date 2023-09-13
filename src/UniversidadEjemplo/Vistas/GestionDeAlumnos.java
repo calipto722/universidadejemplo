@@ -206,7 +206,7 @@ public class GestionDeAlumnos extends javax.swing.JInternalFrame {
         String nombre= jtNombre.getText();
         LocalDate fechadeNac= LocalDate.parse(jdateFechadeNac.getDateFormatString());
         // consultar o revisar si almacena bien el tema del estado. quedo pendiente
-        boolean estado= jrbEstado.getFocusTraversalKeysEnabled();
+        boolean estado= jrbEstado.getVerifyInputWhenFocusTarget();
         
         Alumno alumno1= new Alumno (dni,apellido,nombre,fechadeNac,estado);
         
