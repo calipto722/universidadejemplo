@@ -99,9 +99,10 @@ public class AlumnoData {
                 alumno.setFechaNac(rs.getDate("fechaNacimiento").toLocalDate());
                 alumno.setActivo(true);
            } else {
+               // este try no estaba antes, es solo de prueba
                try{
                   JOptionPane.showMessageDialog(null,"No existe el alumno"); 
-               }catch (NullPointerException e){
+               }catch (NullPointerException e){ //este catch tampoco estaba es un retoque para revisar 
                    JOptionPane.showMessageDialog(null,"error aqui sin saber porque"+e.getMessage());
                }
                

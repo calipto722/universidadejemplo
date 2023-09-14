@@ -26,6 +26,7 @@ public class UniversidadEjemplo {
         
         
         // duda con radio button sobre el estado linea 209 dentro de gestionDeAlumnos
+        // revisar el try-catch de alumnoData linea 102 -107 
     }
     
 }
