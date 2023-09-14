@@ -8,7 +8,9 @@ package UniversidadEjemplo.Vistas;
 import UniversidadEjemplo.AccesoADatos.AlumnoData;
 import UniversidadEjemplo.Entidades.Alumno;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,6 +24,9 @@ public class GestionDeAlumnos extends javax.swing.JInternalFrame {
     public GestionDeAlumnos() {
         initComponents();
         this.setTitle("Alumnos");
+        jbEliminar.setEnabled(false);
+        jbNuevo.setEnabled(false);
+        jbGuardar.setEnabled(false);
     }
 
     /**
@@ -65,8 +70,18 @@ public class GestionDeAlumnos extends javax.swing.JInternalFrame {
         jLabel6.setText("Fecha de Nacimiento");
 
         jbBuscar.setText("Buscar");
+        jbBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbBuscarActionPerformed(evt);
+            }
+        });
 
         jbNuevo.setText("Nuevo");
+        jbNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbNuevoActionPerformed(evt);
+            }
+        });
 
         jbEliminar.setText("Eliminar");
 
@@ -89,8 +104,6 @@ public class GestionDeAlumnos extends javax.swing.JInternalFrame {
                 jtNombreActionPerformed(evt);
             }
         });
-
-        jdateFechadeNac.setDateFormatString("yyyy/mm/dd");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -201,19 +214,61 @@ public class GestionDeAlumnos extends javax.swing.JInternalFrame {
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
         // TODO add your handling code here:
+        try {
         int dni = Integer.parseInt(jtDni.getText());
         String apellido= jtApellido.getText();
         String nombre= jtNombre.getText();
-        LocalDate fechadeNac= LocalDate.parse(jdateFechadeNac.getDateFormatString());
+        
+        LocalDate fechadeNac = jdateFechadeNac.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        
+        
+ 
         // consultar o revisar si almacena bien el tema del estado. quedo pendiente
-        boolean estado= jrbEstado.getVerifyInputWhenFocusTarget();
+        boolean estado= jrbEstado.isSelected();
         
         Alumno alumno1= new Alumno (dni,apellido,nombre,fechadeNac,estado);
         
         AlumnoData alumd= new AlumnoData ();
         alumd.guardarAlumno(alumno1);
-        
+        }catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al completar un campo" +e.getMessage());
+        }
     }//GEN-LAST:event_jbGuardarActionPerformed
+
+    private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
+        // TODO add your handling code here:
+        jtDni.setText(" ");
+        jtApellido.setText(" ");
+        jtNombre.setText(" ");
+        jdateFechadeNac.setDate(null);
+        jrbEstado.setSelected(false);
+    }//GEN-LAST:event_jbNuevoActionPerformed
+
+    private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
+        
+        
+        int dni=Integer.parseInt( jtDni.getText());
+       
+        AlumnoData alumdata = new AlumnoData ();
+         
+        Alumno alum=alumdata.buscarAlumnoPorDni(dni);
+        if(alum.getIdAlumno()>0){
+        
+        jtApellido.setText(alum.getApellido());
+        jtNombre.setText(alum.getNombre());
+        jdateFechadeNac.setDate(java.sql.Date.valueOf(alum.getFechaNac()));
+        jrbEstado.setSelected(alum.isActivo());
+        
+        
+         jbEliminar.setEnabled(true);
+         jbNuevo.setEnabled(true);
+         jbGuardar.setEnabled(true);
+        }else {
+            jbNuevo.setEnabled(true);
+            jbGuardar.setEnabled(true);
+        }
+         
+    }//GEN-LAST:event_jbBuscarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

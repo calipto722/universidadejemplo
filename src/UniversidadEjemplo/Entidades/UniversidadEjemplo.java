@@ -24,6 +24,8 @@ public class UniversidadEjemplo {
         menu.setVisible(true);
         menu.setLocationRelativeTo(null);
         
+        
+        // duda con radio button sobre el estado linea 209 dentro de gestionDeAlumnos
     }
     
 }

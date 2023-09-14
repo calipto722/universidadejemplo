@@ -35,7 +35,7 @@ public class AlumnoData {
             ps.executeUpdate();
             ResultSet rs= ps.getGeneratedKeys();
             if (rs.next()){
-                alumno.setIdAlumno(rs.getInt("idAlumno"));
+                alumno.setIdAlumno(rs.getInt(1));
             JOptionPane.showMessageDialog(null,"Alumno añadido con exito");
             }
             ps.close();
@@ -99,11 +99,17 @@ public class AlumnoData {
                 alumno.setFechaNac(rs.getDate("fechaNacimiento").toLocalDate());
                 alumno.setActivo(true);
            } else {
-               JOptionPane.showMessageDialog(null,"No existe el alumno");
+               try{
+                  JOptionPane.showMessageDialog(null,"No existe el alumno"); 
+               }catch (NullPointerException e){
+                   JOptionPane.showMessageDialog(null,"error aqui sin saber porque"+e.getMessage());
+               }
+               
            }
            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,"Error al acceder a la tabla Alumno " +ex.getMessage());
+        
         }
        
        return alumno;
