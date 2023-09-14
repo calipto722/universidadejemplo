@@ -249,10 +249,13 @@ public class GestionDeAlumnos extends javax.swing.JInternalFrame {
         
         int dni=Integer.parseInt( jtDni.getText());
        
+        try{
+            
+        
         AlumnoData alumdata = new AlumnoData ();
          
         Alumno alum=alumdata.buscarAlumnoPorDni(dni);
-        if(alum.getIdAlumno()>0){
+        if(alum !=null){
         
         jtApellido.setText(alum.getApellido());
         jtNombre.setText(alum.getNombre());
@@ -267,7 +270,9 @@ public class GestionDeAlumnos extends javax.swing.JInternalFrame {
             jbNuevo.setEnabled(true);
             jbGuardar.setEnabled(true);
         }
-         
+        }catch(NullPointerException ex){
+            System.out.println("No existe alumno"+ ex.getMessage());
+        }
     }//GEN-LAST:event_jbBuscarActionPerformed
 
 
