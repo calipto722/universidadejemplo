@@ -84,6 +84,11 @@ public class GestionDeAlumnos extends javax.swing.JInternalFrame {
         });
 
         jbEliminar.setText("Eliminar");
+        jbEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEliminarActionPerformed(evt);
+            }
+        });
 
         jbGuardar.setText("Guardar");
         jbGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -215,65 +220,76 @@ public class GestionDeAlumnos extends javax.swing.JInternalFrame {
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
         // TODO add your handling code here:
         try {
-        int dni = Integer.parseInt(jtDni.getText());
-        String apellido= jtApellido.getText();
-        String nombre= jtNombre.getText();
-        
-        LocalDate fechadeNac = jdateFechadeNac.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        
-        
- 
-        // consultar o revisar si almacena bien el tema del estado. quedo pendiente
-        boolean estado= jrbEstado.isSelected();
-        
-        Alumno alumno1= new Alumno (dni,apellido,nombre,fechadeNac,estado);
-        
-        AlumnoData alumd= new AlumnoData ();
-        alumd.guardarAlumno(alumno1);
-        }catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al completar un campo" +e.getMessage());
+            int dni = Integer.parseInt(jtDni.getText());
+            String apellido = jtApellido.getText();
+            String nombre = jtNombre.getText();
+
+            LocalDate fechadeNac = jdateFechadeNac.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+            // consultar o revisar si almacena bien el tema del estado. quedo pendiente
+            boolean estado = jrbEstado.isSelected();
+
+            Alumno alumno1 = new Alumno(dni, apellido, nombre, fechadeNac, estado);
+
+            AlumnoData alumd = new AlumnoData();
+            alumd.guardarAlumno(alumno1);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Error al completar un campo" + e.getMessage());
         }
+        limpiarJT();
     }//GEN-LAST:event_jbGuardarActionPerformed
 
     private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
         // TODO add your handling code here:
-        jtDni.setText(" ");
-        jtApellido.setText(" ");
-        jtNombre.setText(" ");
-        jdateFechadeNac.setDate(null);
-        jrbEstado.setSelected(false);
+        limpiarJT();
     }//GEN-LAST:event_jbNuevoActionPerformed
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
-        
-        
-        int dni=Integer.parseInt( jtDni.getText());
-       
-        try{
-            
-        
-        AlumnoData alumdata = new AlumnoData ();
-         
-        Alumno alum=alumdata.buscarAlumnoPorDni(dni);
-        if(alum !=null){
-        
-        jtApellido.setText(alum.getApellido());
-        jtNombre.setText(alum.getNombre());
-        jdateFechadeNac.setDate(java.sql.Date.valueOf(alum.getFechaNac()));
-        jrbEstado.setSelected(alum.isActivo());
-        
-        
-         jbEliminar.setEnabled(true);
-         jbNuevo.setEnabled(true);
-         jbGuardar.setEnabled(true);
-        }else {
-            jbNuevo.setEnabled(true);
-            jbGuardar.setEnabled(true);
-        }
-        }catch(NullPointerException ex){
-            System.out.println("No existe alumno"+ ex.getMessage());
+
+        int dni = Integer.parseInt(jtDni.getText());
+
+        try {
+
+            AlumnoData alumdata = new AlumnoData();
+
+            Alumno alum = alumdata.buscarAlumnoPorDni(dni);
+            if (alum != null) {
+
+                jtApellido.setText(alum.getApellido());
+                jtNombre.setText(alum.getNombre());
+                jdateFechadeNac.setDate(java.sql.Date.valueOf(alum.getFechaNac()));
+                jrbEstado.setSelected(alum.isActivo());
+
+                jbEliminar.setEnabled(true);
+                jbNuevo.setEnabled(true);
+                jbGuardar.setEnabled(true);
+                
+                alum.setActivo(jrbEstado.isSelected());
+                alum.setApellido(jtApellido.getText());
+                alum.setDni(Integer.parseInt(jtDni.getText()));
+                alum.setFechaNac(jdateFechadeNac.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+                alum.setNombre(jtNombre.getText());
+                
+                alumdata.modificarAlumno(alum);
+            } else {
+                jbNuevo.setEnabled(true);
+                jbGuardar.setEnabled(true);
+            }
+        } catch (NullPointerException ex) {
+            System.out.println("No existe alumno" + ex.getMessage());
         }
     }//GEN-LAST:event_jbBuscarActionPerformed
+
+    private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
+/// preguntar si una ves que usamos el boton buscar podemos conserbar la id del usuario
+        AlumnoData alumdata = new AlumnoData();
+        int dni = Integer.parseInt(jtDni.getText());
+        Alumno alum = alumdata.buscarAlumnoPorDni(dni);
+        alumdata.eliminarAlumno(alum.getIdAlumno());
+
+        limpiarJT();
+// TODO add your handling code here:
+    }//GEN-LAST:event_jbEliminarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -295,4 +311,11 @@ public class GestionDeAlumnos extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jtDni;
     private javax.swing.JTextField jtNombre;
     // End of variables declaration//GEN-END:variables
+  private void limpiarJT() {
+        jtDni.setText(" ");
+        jtApellido.setText(" ");
+        jtNombre.setText(" ");
+        jdateFechadeNac.setDate(null);
+        jrbEstado.setSelected(false);
+    }
 }
