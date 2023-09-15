@@ -9,7 +9,6 @@ import UniversidadEjemplo.AccesoADatos.AlumnoData;
 import UniversidadEjemplo.Entidades.Alumno;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
@@ -220,7 +219,14 @@ public class GestionDeAlumnos extends javax.swing.JInternalFrame {
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
         // TODO add your handling code here:
         try {
+            Alumno alumno1=null;
+            AlumnoData alumd= new AlumnoData();
             int dni = Integer.parseInt(jtDni.getText());
+            
+            if(!((alumno1)==alumd.buscarAlumnoPorDni(dni))){
+                
+            
+            
             String apellido = jtApellido.getText();
             String nombre = jtNombre.getText();
 
@@ -229,10 +235,23 @@ public class GestionDeAlumnos extends javax.swing.JInternalFrame {
             // consultar o revisar si almacena bien el tema del estado. quedo pendiente
             boolean estado = jrbEstado.isSelected();
 
-            Alumno alumno1 = new Alumno(dni, apellido, nombre, fechadeNac, estado);
+             alumno1 = new Alumno(dni, apellido, nombre, fechadeNac, estado);
 
-            AlumnoData alumd = new AlumnoData();
             alumd.guardarAlumno(alumno1);
+            } else{
+                alumno1= alumd.buscarAlumnoPorDni(dni);
+                
+                alumno1.setActivo(jrbEstado.isSelected());
+                alumno1.setApellido(jtApellido.getText());
+                alumno1.setDni(Integer.parseInt(jtDni.getText()));
+                alumno1.setFechaNac(jdateFechadeNac.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+                alumno1.setNombre(jtNombre.getText());
+             
+                
+                alumd.modificarAlumno(alumno1); 
+            }
+            
+            
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Error al completar un campo" + e.getMessage());
         }
@@ -264,13 +283,7 @@ public class GestionDeAlumnos extends javax.swing.JInternalFrame {
                 jbNuevo.setEnabled(true);
                 jbGuardar.setEnabled(true);
                 
-                alum.setActivo(jrbEstado.isSelected());
-                alum.setApellido(jtApellido.getText());
-                alum.setDni(Integer.parseInt(jtDni.getText()));
-                alum.setFechaNac(jdateFechadeNac.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-                alum.setNombre(jtNombre.getText());
-                
-                alumdata.modificarAlumno(alum);
+               
             } else {
                 jbNuevo.setEnabled(true);
                 jbGuardar.setEnabled(true);
